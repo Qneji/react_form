@@ -5,12 +5,14 @@ import { Controller, useForm } from "react-hook-form" // Controller - controla o
 type FormData = {
   name: string
   date: string
+  subject: string
 }
 
 export default function App() {
   const { control, handleSubmit } = useForm<FormData>({ defaultValues: {
     name: "",
     date: "",
+    subject: "",
   }})
 
   function onSubmit(data: FormData) {
@@ -35,21 +37,27 @@ export default function App() {
         <Controller 
           name="date"
           control={control}
-          render={({field}) => (
+          render={({ field }) => (
             <input type="date" placeholder="Nome do evento" lang="pt-BR" {...field} />
           )}
         />
 
-        <select defaultValue="">
-          <option value="" disabled>
-            Selecione...
-          </option>
+        <Controller
+          name="subject"
+          control={control}
+          render={({ field }) => (
+            <select {...field}>
+              <option value="" disabled>
+                Selecione...
+              </option>
 
-          <option value="technology">React</option>
-          <option value="entertainment">Node.js</option>
-          <option value="business">Javascript</option>
-          <option value="business">Typescript</option>
-        </select>
+              <option value="react">React</option>
+              <option value="nodejs">Node.js</option>
+              <option value="javascript">Javascript</option>
+              <option value="typescript">Typescript</option>
+            </select>
+          )}
+        />
 
         <textarea placeholder="Descrição" rows={4} />
 
