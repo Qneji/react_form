@@ -3,7 +3,9 @@ import "./App.css"
 import { Controller, useForm } from "react-hook-form" // Controller - controla os inputs do form, useForm - controla o form como um todo, extraindo elementos do form
 
 export default function App() {
-  const { control, handleSubmit } = useForm()
+  const { control, handleSubmit } = useForm({ defaultValues: {
+    name: ""
+  }})
 
   function onSubmit(data) {
     console.log(data)
