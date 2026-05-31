@@ -6,6 +6,7 @@ type FormData = {
   name: string
   date: string
   subject: string
+  description: string
 }
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     name: "",
     date: "",
     subject: "",
+    description: "",
   }})
 
   function onSubmit(data: FormData) {
@@ -59,7 +61,13 @@ export default function App() {
           )}
         />
 
-        <textarea placeholder="Descrição" rows={4} />
+        <Controller 
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <textarea placeholder="Descrição" rows={4} {...field} />
+          )}
+        />
 
         <button type="submit">Salvar</button>
       </form>
