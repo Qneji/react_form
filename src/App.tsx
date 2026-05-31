@@ -1,6 +1,8 @@
 import "./App.css"
 
 import { Controller, useForm } from "react-hook-form" // Controller - controla os inputs do form, useForm - controla o form como um todo, extraindo elementos do form
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
 
 type FormData = {
   name: string
@@ -9,13 +11,23 @@ type FormData = {
   description: string
 }
 
+const schema = yup.object({
+  name: yup.string().required("Nome é obrigatório"),
+  date: yup.string().required("Data é obrigatória"),
+  subject: yup.string().required("Selecione um assunto"),
+  description: yup.string().required("Descrição é obrigatória").min(10, "A descrição precisa ter pelo menos 10 dígitos"),
+})
+
 export default function App() {
-  const { control, handleSubmit } = useForm<FormData>({ defaultValues: {
-    name: "",
-    date: "",
-    subject: "",
-    description: "",
-  }})
+  const { control, handleSubmit } = useForm<FormData>({ 
+    defaultValues: {
+      name: "",
+      date: "",
+      subject: "",
+      description: "",
+    },
+    resolver: yupResolver(schema)
+  })
 
   function onSubmit(data: FormData) {
     console.log(data)
